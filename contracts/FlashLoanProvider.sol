@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 import "./LiquidityPool.sol";
 import "./LiquidityPoolFactory.sol";
@@ -16,12 +16,6 @@ contract FlashLoanProvider {
         address pool = findOptimalPool(desiredToken, amount);
         require(pool != address(0), "No suitable pool found");
         LiquidityPool(pool).flashLoan(msg.sender, desiredToken, amount);
-    }
-
-    function repayLoan(address token, uint amount, address pool) external {
-        require(pool != address(0), "Invalid pool address");
-        IERC20(token).approve(msg.sender, amount);
-        IERC20(token).transferFrom(msg.sender, pool, amount);
     }
 
     function findOptimalPool(

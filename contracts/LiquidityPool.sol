@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 import "./IERC20.sol";
 import "./ERC20.sol";
@@ -47,11 +47,38 @@ contract LiquidityPool is ERC20 {
             token1.transferFrom(msg.sender, address(this), amountToken1),
             "Token1 transfer failed"
         );
-        uint totalLiquidity = totalSupply == 0
-            ? sqrt(amountToken0 * amountToken1)
-            : totalSupply;
-        _mint(msg.sender, totalLiquidity);
-        emit LiquidityAdded(msg.sender, totalLiquidity);
+        // uint totalLiquidity = totalSupply == 0
+        //     ? sqrt(amountToken0 * amountToken1)
+        //     : totalSupply;
+
+        uint256 _totalSupply = totalSupply; // for gas optimization
+        uint256 lpTokenAmount;
+
+        if (_totalSupply == 0) {
+            lpTokenAmount = (amountToken0 + amountToken1) / 2000;
+        } else {
+            uint256 token0Reserve = token0.balanceOf(address(this));
+            uint256 token1Reserve = token1.balanceOf(address(this));
+
+            // Calculate the LP tokens for each input based on the reserves
+            uint256 lpTokenAmountForToken0 = (amountToken0 * _totalSupply) /
+                token0Reserve;
+            uint256 lpTokenAmountForToken1 = (amountToken1 * _totalSupply) /
+                token1Reserve;
+
+            // The LP tokens issued is the lesser of the two values to maintain the ratio
+            uint256 liquidityBasedOnReserves = min(
+                lpTokenAmountForToken0,
+                lpTokenAmountForToken1
+            );
+
+            lpTokenAmount =
+                (liquidityBasedOnReserves + amountToken0 + amountToken1) /
+                2000;
+        }
+
+        _mint(msg.sender, lpTokenAmount);
+        emit LiquidityAdded(msg.sender, lpTokenAmount);
     }
 
     function removeLiquidity(uint256 lpAmount) external {
@@ -148,9 +175,12 @@ contract LiquidityPool is ERC20 {
 
         uint fee = (amount * 5) / 10000;
 
-        IERC20(token).transfer(borrower, amount);
+        require(
+            IERC20(token).transfer(borrower, amount),
+            "Could not transfer tokens"
+        );
+
         IFlashLoanReceiver(borrower).executeFlashloan(
-            token,
             amount,
             fee,
             address(this)
@@ -190,5 +220,9 @@ contract LiquidityPool is ERC20 {
             z = (x / z + z) / 2;
         }
         return y;
+    }
+
+    function min(uint256 a, uint256 b) internal pure returns (uint256) {
+        return a < b ? a : b;
     }
 }

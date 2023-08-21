@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 import "./LiquidityPool.sol";
 import "./LiquidityPoolFactory.sol";
@@ -16,9 +16,12 @@ contract DEX {
         address[] memory route,
         uint amountIn,
         uint minAmountOut
-    ) external {
+    ) external returns (uint) {
         require(route.length >= 2, "Invalid route");
         require(amountIn > 0, "Amount must be greater than 0");
+
+        //send the tokens to this contract
+        IERC20(route[0]).transferFrom(msg.sender, address(this), amountIn);
 
         uint amountOut;
         uint amountInNext = amountIn;
@@ -30,6 +33,8 @@ contract DEX {
             LiquidityPool pool = LiquidityPool(
                 factory.getLiquidityPool(tokenIn, tokenOut)
             );
+            IERC20 token = IERC20(tokenIn);
+            token.approve(address(pool), amountInNext);
             amountOut = pool.swapTokens(tokenIn, tokenOut, amountInNext);
 
             amountInNext = amountOut;
@@ -40,12 +45,17 @@ contract DEX {
             "Output amount is below specified minimum"
         );
 
-        LiquidityPool pool = LiquidityPool(route[route.length - 1]);
-        IERC20 outputToken = IERC20(pool.token1());
+        IERC20 outputToken = IERC20(route[route.length - 1]);
+        // require(
+        //     outputToken.transferFrom(address(pool), msg.sender, amountOut),
+        //     "Failed to transfer output tokens"
+        // );
         require(
-            outputToken.transferFrom(address(pool), msg.sender, amountOut),
+            outputToken.transfer(msg.sender, amountOut),
             "Failed to transfer output tokens"
         );
+
+        return amountOut;
     }
 
     function getRoute(

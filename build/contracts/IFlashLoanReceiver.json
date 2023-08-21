@@ -4,11 +4,6 @@
     {
       "inputs": [
         {
-          "internalType": "address",
-          "name": "token",
-          "type": "address"
-        },
-        {
           "internalType": "uint256",
           "name": "amount",
           "type": "uint256"
@@ -30,7 +25,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.12+commit.f00d7308\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fee\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"}],\"name\":\"executeFlashloan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IFlashLoanReceiver.sol\":\"IFlashLoanReceiver\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IFlashLoanReceiver.sol\":{\"keccak256\":\"0x16234e8fea58acd2c4a10d927d79e2839820a0319e20040578afb899a8c1b3ed\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://862e96a013530d04846fa675f6bd1b012e158610586a7a28ebef6fac0d373c87\",\"dweb:/ipfs/QmUE9XxHa62otCvkKRFMjx3aZTqGTHeVj9oPmaiVy83dX1\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fee\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"}],\"name\":\"executeFlashloan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IFlashLoanReceiver.sol\":\"IFlashLoanReceiver\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IFlashLoanReceiver.sol\":{\"keccak256\":\"0x0a927ba40b8042f0c18ae71ff91701a9f1eb639136ba2e1a6c029107be1b6a1c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e555dc1f10c07cd4d47bdaf1d9798aac833afe64b224b39777bedce3e94f4eb4\",\"dweb:/ipfs/QmPmKDWyX7spwgcdmhExLd4zfCrLySbDWv18EciBoseD2x\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -38,26 +33,26 @@
   "deployedGeneratedSources": [],
   "sourceMap": "",
   "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.9;\n\ninterface IFlashLoanReceiver {\n    function executeFlashloan(\n        address token,\n        uint256 amount,\n        uint256 fee,\n        address pool\n    ) external;\n}\n",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface IFlashLoanReceiver {\n    function executeFlashloan(\n        uint256 amount,\n        uint256 fee,\n        address pool\n    ) external;\n}\n",
   "sourcePath": "C:\\Users\\surge\\Desktop\\dapp-projects\\liquidip\\contracts\\IFlashLoanReceiver.sol",
   "ast": {
     "absolutePath": "project:/contracts/IFlashLoanReceiver.sol",
     "exportedSymbols": {
       "IFlashLoanReceiver": [
-        1370
+        1423
       ]
     },
-    "id": 1371,
+    "id": 1424,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1358,
+        "id": 1413,
         "literals": [
           "solidity",
           "^",
           "0.8",
-          ".9"
+          ".0"
         ],
         "nodeType": "PragmaDirective",
         "src": "32:23:6"
@@ -69,17 +64,17 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 1370,
+        "id": 1423,
         "linearizedBaseContracts": [
-          1370
+          1423
         ],
         "name": "IFlashLoanReceiver",
         "nameLocation": "67:18:6",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "functionSelector": "f3672552",
-            "id": 1369,
+            "functionSelector": "32978f79",
+            "id": 1422,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -87,46 +82,18 @@
             "nameLocation": "101:16:6",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1367,
+              "id": 1420,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1360,
-                  "mutability": "mutable",
-                  "name": "token",
-                  "nameLocation": "135:5:6",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 1369,
-                  "src": "127:13:6",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 1359,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "127:7:6",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 1362,
+                  "id": 1415,
                   "mutability": "mutable",
                   "name": "amount",
-                  "nameLocation": "158:6:6",
+                  "nameLocation": "135:6:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1369,
-                  "src": "150:14:6",
+                  "scope": 1422,
+                  "src": "127:14:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -134,10 +101,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1361,
+                    "id": 1414,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "150:7:6",
+                    "src": "127:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -147,13 +114,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1364,
+                  "id": 1417,
                   "mutability": "mutable",
                   "name": "fee",
-                  "nameLocation": "182:3:6",
+                  "nameLocation": "159:3:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1369,
-                  "src": "174:11:6",
+                  "scope": 1422,
+                  "src": "151:11:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -161,10 +128,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1363,
+                    "id": 1416,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "174:7:6",
+                    "src": "151:7:6",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -174,13 +141,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1366,
+                  "id": 1419,
                   "mutability": "mutable",
                   "name": "pool",
-                  "nameLocation": "203:4:6",
+                  "nameLocation": "180:4:6",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1369,
-                  "src": "195:12:6",
+                  "scope": 1422,
+                  "src": "172:12:6",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -188,10 +155,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1365,
+                    "id": 1418,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "195:7:6",
+                    "src": "172:7:6",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -201,35 +168,36 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "117:96:6"
+              "src": "117:73:6"
             },
             "returnParameters": {
-              "id": 1368,
+              "id": 1421,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "222:0:6"
+              "src": "199:0:6"
             },
-            "scope": 1370,
-            "src": "92:131:6",
+            "scope": 1423,
+            "src": "92:108:6",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 1371,
-        "src": "57:168:6",
-        "usedErrors": []
+        "scope": 1424,
+        "src": "57:145:6",
+        "usedErrors": [],
+        "usedEvents": []
       }
     ],
-    "src": "32:194:6"
+    "src": "32:171:6"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.8.12+commit.f00d7308.Emscripten.clang"
+    "version": "0.8.21+commit.d9974bed.Emscripten.clang"
   },
   "networks": {},
   "schemaVersion": "3.4.15",
-  "updatedAt": "2023-08-15T05:05:28.253Z",
+  "updatedAt": "2023-08-20T22:30:46.481Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

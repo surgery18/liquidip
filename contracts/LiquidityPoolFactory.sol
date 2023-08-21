@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 import "./LiquidityPool.sol";
 
@@ -9,6 +9,7 @@ contract LiquidityPoolFactory {
 
     mapping(address => mapping(address => address)) public pools;
     mapping(address => address[]) public tokenToPools;
+    address[][] public allPairs;
 
     event LiquidityPoolCreated(
         address indexed tokenA,
@@ -25,6 +26,10 @@ contract LiquidityPoolFactory {
         pools[tokenB][tokenA] = newPool;
         tokenToPools[tokenA].push(newPool);
         tokenToPools[tokenB].push(newPool);
+        address[] memory pair = new address[](2);
+        pair[0] = tokenA;
+        pair[1] = tokenB;
+        allPairs.push(pair);
 
         if (!tokenExists(tokenA)) {
             addToken(tokenA);
@@ -67,20 +72,22 @@ contract LiquidityPoolFactory {
         return tokens.length;
     }
 
-    function getAllPairings()
-        external
-        view
-        returns (address[] memory tokens, address[][] memory pairs)
-    {
-        tokens = new address[](tokens.length);
-        pairs = new address[][](tokens.length);
+    function getPairsCount() public view returns (uint256) {
+        return allPairs.length;
+    }
+
+    function getAllPairings() external view returns (address[][] memory) {
+        return allPairs;
+    }
+
+    function getAllTokens() external view returns (address[] memory _tokens) {
+        _tokens = new address[](tokens.length);
 
         for (uint i = 0; i < tokens.length; i++) {
-            tokens[i] = tokens[i];
-            pairs[i] = tokenToPools[tokens[i]];
+            _tokens[i] = tokens[i];
         }
 
-        return (tokens, pairs);
+        return _tokens;
     }
 
     function getTokenPools(

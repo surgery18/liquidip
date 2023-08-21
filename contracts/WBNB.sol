@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
 /*
 Very basic token contract for a Wrapped Eth (or BNB in my case)
@@ -7,8 +7,7 @@ Very basic token contract for a Wrapped Eth (or BNB in my case)
 
 import "./ERC20.sol";
 
-contract WBNB is ERC20  {
-
+contract WBNB is ERC20 {
     string public name = "Wrapped BNB";
     string public symbol = "WBNB";
     uint8 public decimals = 18;
@@ -22,9 +21,12 @@ contract WBNB is ERC20  {
     }
 
     function withdraw(uint _amount) public {
-        require(balanceOf[msg.sender] >= _amount, "You don't have enough tokens to withdraw!");
+        require(
+            balanceOf[msg.sender] >= _amount,
+            "You don't have enough tokens to withdraw!"
+        );
         balanceOf[msg.sender] -= _amount;
-        (bool sent,) = payable(msg.sender).call{value: _amount}("");
+        (bool sent, ) = payable(msg.sender).call{value: _amount}("");
         require(sent, "Funds were not sent");
         emit Withdrawal(msg.sender, _amount);
     }
