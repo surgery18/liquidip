@@ -101,6 +101,28 @@ contract LiquidityPool is ERC20 {
         emit LiquidityRemoved(msg.sender, lpAmount);
     }
 
+    function getPoolDetails()
+        external
+        view
+        returns (
+            string memory,
+            string memory,
+            uint,
+            string memory,
+            string memory,
+            uint
+        )
+    {
+        return (
+            token0.name(),
+            token0.symbol(),
+            token0.balanceOf(address(this)),
+            token1.name(),
+            token1.symbol(),
+            token1.balanceOf(address(this))
+        );
+    }
+
     function swapTokens(
         address tokenIn,
         address tokenOut,

@@ -21,7 +21,7 @@ contract DEXFactory {
         address indexed liquidityPoolFactory
     );
 
-    function createDex() external {
+    function createDex() external returns (DEXData memory) {
         LiquidityPoolFactory newLPF = new LiquidityPoolFactory();
         DEX newDex = new DEX(address(newLPF));
         FlashLoanProvider newFLP = new FlashLoanProvider(address(newLPF));
@@ -36,6 +36,7 @@ contract DEXFactory {
         dexToDetails[address(newDex)] = data;
 
         emit DEXCreated(address(newDex), address(newFLP), address(newLPF));
+        return data;
     }
 
     function getDEXCount() external view returns (uint256) {

@@ -11,6 +11,9 @@ contract LiquidityPoolFactory {
     mapping(address => address[]) public tokenToPools;
     address[][] public allPairs;
 
+    mapping(uint => address) public allPools;
+    uint public poolCount = 0;
+
     event LiquidityPoolCreated(
         address indexed tokenA,
         address indexed tokenB,
@@ -26,6 +29,8 @@ contract LiquidityPoolFactory {
         pools[tokenB][tokenA] = newPool;
         tokenToPools[tokenA].push(newPool);
         tokenToPools[tokenB].push(newPool);
+        allPools[poolCount] = newPool;
+        poolCount += 1;
         address[] memory pair = new address[](2);
         pair[0] = tokenA;
         pair[1] = tokenB;
@@ -86,8 +91,14 @@ contract LiquidityPoolFactory {
         for (uint i = 0; i < tokens.length; i++) {
             _tokens[i] = tokens[i];
         }
+    }
 
-        return _tokens;
+    function getAllPools() external view returns (address[] memory _pools) {
+        _pools = new address[](poolCount);
+
+        for (uint i = 0; i < poolCount; i++) {
+            _pools[i] = allPools[i];
+        }
     }
 
     function getTokenPools(

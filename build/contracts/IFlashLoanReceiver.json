@@ -34,20 +34,20 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface IFlashLoanReceiver {\n    function executeFlashloan(\n        uint256 amount,\n        uint256 fee,\n        address pool\n    ) external;\n}\n",
-  "sourcePath": "C:\\Users\\surge\\Desktop\\dapp-projects\\liquidip\\contracts\\IFlashLoanReceiver.sol",
+  "sourcePath": "/media/scott/E8A0D408A0D3DB60/Users/surge/Desktop/dapp-projects/liquidip/contracts/IFlashLoanReceiver.sol",
   "ast": {
     "absolutePath": "project:/contracts/IFlashLoanReceiver.sol",
     "exportedSymbols": {
       "IFlashLoanReceiver": [
-        1423
+        1529
       ]
     },
-    "id": 1424,
+    "id": 1530,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1413,
+        "id": 1519,
         "literals": [
           "solidity",
           "^",
@@ -55,7 +55,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:6"
+        "src": "32:23:7"
       },
       {
         "abstract": false,
@@ -64,36 +64,36 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 1423,
+        "id": 1529,
         "linearizedBaseContracts": [
-          1423
+          1529
         ],
         "name": "IFlashLoanReceiver",
-        "nameLocation": "67:18:6",
+        "nameLocation": "67:18:7",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "32978f79",
-            "id": 1422,
+            "id": 1528,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "executeFlashloan",
-            "nameLocation": "101:16:6",
+            "nameLocation": "101:16:7",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1420,
+              "id": 1526,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1415,
+                  "id": 1521,
                   "mutability": "mutable",
                   "name": "amount",
-                  "nameLocation": "135:6:6",
+                  "nameLocation": "135:6:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1422,
-                  "src": "127:14:6",
+                  "scope": 1528,
+                  "src": "127:14:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -101,10 +101,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1414,
+                    "id": 1520,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "127:7:6",
+                    "src": "127:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -114,13 +114,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1417,
+                  "id": 1523,
                   "mutability": "mutable",
                   "name": "fee",
-                  "nameLocation": "159:3:6",
+                  "nameLocation": "159:3:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1422,
-                  "src": "151:11:6",
+                  "scope": 1528,
+                  "src": "151:11:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -128,10 +128,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1416,
+                    "id": 1522,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "151:7:6",
+                    "src": "151:7:7",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -141,13 +141,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1419,
+                  "id": 1525,
                   "mutability": "mutable",
                   "name": "pool",
-                  "nameLocation": "180:4:6",
+                  "nameLocation": "180:4:7",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1422,
-                  "src": "172:12:6",
+                  "scope": 1528,
+                  "src": "172:12:7",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -155,10 +155,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1418,
+                    "id": 1524,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "172:7:6",
+                    "src": "172:7:7",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -168,28 +168,28 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "117:73:6"
+              "src": "117:73:7"
             },
             "returnParameters": {
-              "id": 1421,
+              "id": 1527,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "199:0:6"
+              "src": "199:0:7"
             },
-            "scope": 1423,
-            "src": "92:108:6",
+            "scope": 1529,
+            "src": "92:108:7",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 1424,
-        "src": "57:145:6",
+        "scope": 1530,
+        "src": "57:145:7",
         "usedErrors": [],
         "usedEvents": []
       }
     ],
-    "src": "32:171:6"
+    "src": "32:171:7"
   },
   "compiler": {
     "name": "solc",
@@ -197,7 +197,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.15",
-  "updatedAt": "2023-08-20T22:30:46.481Z",
+  "updatedAt": "2023-08-22T16:47:56.154Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

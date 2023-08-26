@@ -25,5 +25,7 @@ interface IERC20 {
         uint256 _value
     ) external returns (bool success);
 
+    function name() external view returns (string memory);
+
     function symbol() external view returns (string memory);
 }
