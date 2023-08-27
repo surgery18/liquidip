@@ -95,7 +95,7 @@ export const useWeb3Store = defineStore("web3", () => {
 		// console.log(route)
 
 		// const borrowed = 1
-		const fee = borrowed * 0.03
+		const fee = borrowed * 0.05
 
 		const aBalwei = await dac.methods
 			.estimateOutput(

@@ -186,6 +186,7 @@
 			async executeArbitrage(borrowAmount, id) {
 				const arb = this.arbitrages[id]
 				const web3 = this.web3.web3
+
 				startLoading()
 				try {
 					const arbc = new web3.eth.Contract(Arbitrage.abi, arb.address)
