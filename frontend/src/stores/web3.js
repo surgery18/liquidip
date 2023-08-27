@@ -34,6 +34,7 @@ export const useWeb3Store = defineStore("web3", () => {
 		if (!isTest && nid !== 97) {
 			throw new Error("Wrong network")
 		}
+
 		// web3.value = new Web3(nodeUrl)
 		const accounts = await web3.value.eth.getAccounts()
 		if (accounts && accounts.length > 0) {
@@ -56,6 +57,8 @@ export const useWeb3Store = defineStore("web3", () => {
 				method: "eth_requestAccounts",
 			})
 			currentAddress.value = accounts[0]
+			//just because
+			// window.location.reload()
 			//loadContracts();
 		} else {
 			throw new Error("Please install MetaMask or another web3 provider.")

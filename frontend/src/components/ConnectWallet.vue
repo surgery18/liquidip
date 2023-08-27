@@ -4,7 +4,7 @@
 		<button
 			v-if="!store.currentAddress"
 			class="btn btn-lg btn-primary my-4"
-			@click="store.connect"
+			@click="connected"
 		>
 			Connect Wallet
 		</button>
@@ -35,6 +35,15 @@
 				await this.store.loadContracts()
 				this.$emit("contractsLoaded")
 			} catch (e) {}
+		},
+		methods: {
+			async connected() {
+				try {
+					await this.store.connect()
+					await this.store.loadContracts()
+					this.$emit("contractsLoaded")
+				} catch (e) {}
+			},
 		},
 	}
 </script>

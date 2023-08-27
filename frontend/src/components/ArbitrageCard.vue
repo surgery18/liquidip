@@ -62,6 +62,7 @@
 		},
 		watch: {
 			borrowAmount(v) {
+				// console.log(v)
 				this.$emit("borrowedAmount", v, this.id)
 			},
 			arb: {

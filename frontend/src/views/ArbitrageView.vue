@@ -86,6 +86,7 @@
 				this.fetchArbitrages()
 			},
 			async onBorrowedAmount(amount, id) {
+				// console.log(amount, id)
 				const arb = this.arbitrages[id]
 				if (amount <= 0) {
 					this.arbitrages[id] = {
@@ -142,7 +143,7 @@
 			async fetchArbitrages() {
 				this.arbitrages = []
 				// Fetch the list of arbitrages and set it to the arbitrages data property
-				if (!this.web3) return
+				if (!this.web3?.currentAddress) return
 				const web3 = this.web3.web3
 				const nid = this.web3.networkId
 				const arbf = new web3.eth.Contract(
@@ -167,7 +168,7 @@
 					const t0s = await t0c.methods.symbol().call()
 					const t1s = await t1c.methods.symbol().call()
 
-					const profitData = await this.web3.calcProfits(da, db, t0, t1, 0.1)
+					const profitData = await this.web3.calcProfits(da, db, t0, t1, 0.01)
 
 					const data = {
 						address: arb,
