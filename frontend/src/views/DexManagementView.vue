@@ -212,8 +212,11 @@
 					//load details
 					for (const pool of pools) {
 						const details = await this.getPoolDetails(pool)
-						// console.log(details)
-						this.liquidityPools.push(details)
+						//PANGO TOKEN HAS NO PUBLIC ALLOWANCE FUNCTION BY MISTAKE. HIDING IT.
+						if (details.aSymbol !== "PANGO" && details.bSymbol !== "PANGO") {
+							// console.log(details)
+							this.liquidityPools.push(details)
+						}
 					}
 				} catch (e) {
 					console.log(e)
@@ -428,7 +431,9 @@
 					const t = new web3.eth.Contract(IERC20.abi, token)
 					const name = await t.methods.name().call()
 					const symbol = await t.methods.symbol().call()
-					atokens.push({ address: token, name, symbol })
+					if (symbol !== "PANGO") {
+						atokens.push({ address: token, name, symbol })
+					}
 				}
 				this.tokens = [...atokens]
 				// console.log(this.tokens)

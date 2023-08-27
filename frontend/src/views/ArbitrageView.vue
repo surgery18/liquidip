@@ -128,7 +128,9 @@
 					const t = new web3.eth.Contract(IERC20.abi, token)
 					const name = await t.methods.name().call()
 					const symbol = await t.methods.symbol().call()
-					atokens.push({ address: token, name, symbol })
+					if (symbol !== "PANGO") {
+						atokens.push({ address: token, name, symbol })
+					}
 				}
 				this.tokens = [...atokens]
 				// console.log(this.tokens)
