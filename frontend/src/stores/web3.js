@@ -1,8 +1,10 @@
 import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import DexFactoryContract from "../../../build/contracts/DEXFactory.json"
+import LiquidityPoolFactory from "../../../build/contracts/LiquidityPoolFactory.json"
 import Web3 from "web3"
 import DEX from "../../../build/contracts/DEX.json"
+import IERC20 from "../../../build/contracts/IERC20.json"
 
 const isTest = false
 const nodeUrl = isTest
@@ -86,6 +88,23 @@ export const useWeb3Store = defineStore("web3", () => {
 		// arbFactory.value = new web3.value.eth.Contract(ArbFactoryContractABI, "ArbFactoryContractAddress");
 	}
 
+	async function findOptimalPool(dex, desiredToken, amount) {
+		const dc = new web3.value.eth.Contract(DEX.abi, dex)
+		const lpf = await dc.methods.factory().call()
+		const lc = new web3.value.eth.Contract(LiquidityPoolFactory.abi, lpf)
+		const pools = await lc.methods.getTokenPools(desiredToken).call()
+		if (pools.length === 0) return null
+		const t = new web3.value.eth.Contract(IERC20.abi, desiredToken)
+		for (const pool of pools) {
+			const poolBalwei = await t.methods.balanceOf(pool).call()
+			const poolBal = web3.value.utils.fromWei(poolBalwei, "ether")
+			if (+poolBal >= amount) {
+				return pool
+			}
+		}
+		return null
+	}
+
 	async function calcProfits(dexA, dexB, t0, t1, borrowed) {
 		//calculate estimate profit
 		const dac = new web3.value.eth.Contract(DEX.abi, dexA)
@@ -105,18 +124,38 @@ export const useWeb3Store = defineStore("web3", () => {
 			)
 			.call()
 
-		const bBalwei = await dbc.methods
-			.estimateOutput(route.slice(-2).reverse(), aBalwei)
-			.call()
+		const finalPool = route.slice(-2).reverse()
+		const bBalwei = await dbc.methods.estimateOutput(finalPool, aBalwei).call()
 		const bal = +web3.value.utils.fromWei(bBalwei, "ether")
 
 		const estimatedProfit = bal - (borrowed + fee)
 		// console.log(borrowed, fee, estimatedProfit)
 		const profitable = estimatedProfit > 0
-		return {
+
+		//we need to see if there is enough tokens to borrow from
+		//we will simulate what the flash loan does
+		const borrowPool = await findOptimalPool(dexA, t0, borrowed)
+		const enoughToBorrow = borrowPool != null
+
+		//we need to see if there is enough tokens to take from
+		const df = await dbc.methods.factory().call()
+		const lfc = new web3.value.eth.Contract(LiquidityPoolFactory.abi, df)
+		const fp = await lfc.methods
+			.getLiquidityPool(finalPool[0], finalPool[1])
+			.call()
+		const token = new web3.value.eth.Contract(IERC20.abi, t0)
+		const finalWei = await token.methods.balanceOf(fp).call()
+		const finalBal = +web3.value.utils.fromWei(finalWei, "ether")
+		const canTake = estimatedProfit <= finalBal
+
+		const data = {
 			estimatedProfit,
 			profitable,
+			enoughToBorrow,
+			canTake,
 		}
+		// console.log(data)
+		return data
 	}
 
 	return {
@@ -129,5 +168,6 @@ export const useWeb3Store = defineStore("web3", () => {
 		connect,
 		loadContracts,
 		calcProfits,
+		findOptimalPool,
 	}
 })

@@ -231,7 +231,16 @@
 			async createLiquidity(tokena, tokenb) {
 				const web3 = this.web3.web3
 				const lpf = this.selectedDex.liquidityPoolFactory
-				console.log(tokena, tokenb)
+				// console.log(tokena, tokenb)
+
+				//make sure this pool does not already exist. No need to call it and fail on them anyways
+				const hasPool = await lpf.methods.hasPool(tokena, tokenb).call()
+				if (hasPool) {
+					this.closeLiquidityModal()
+					alert("Pool already exists")
+					return
+				}
+
 				startLoading()
 				try {
 					const tx = await lpf.methods

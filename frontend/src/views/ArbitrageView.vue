@@ -92,6 +92,8 @@
 						...arb,
 						profitable: false,
 						estimatedProfit: 0,
+						canTake: false,
+						enoughToBorrow: false,
 					}
 					return
 				}
@@ -106,6 +108,8 @@
 					...arb,
 					profitable: newAmount.profitable,
 					estimatedProfit: newAmount.estimatedProfit,
+					canTake: newAmount.canTake,
+					enoughToBorrow: newAmount.enoughToBorrow,
 				}
 			},
 			async onSelectDexA(dex) {
@@ -179,6 +183,8 @@
 						},
 						estimatedProfit: profitData.estimatedProfit,
 						profitable: profitData.profitable,
+						canTake: profitData.canTake,
+						enoughToBorrow: profitData.enoughToBorrow,
 					}
 					this.arbitrages.push(data)
 				}

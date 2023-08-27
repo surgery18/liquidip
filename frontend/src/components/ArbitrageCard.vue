@@ -13,6 +13,9 @@
 			<div class="card-text">
 				<div>{{ arb.token0.symbol }}: {{ arb.estimatedProfit }}</div>
 				<div>USD: ${{ usd }}</div>
+				<div v-if="!enoughInLP(arb)" class="text-danger">
+					Not enough tokens in LP
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="borrowAmount" class="form-label">Borrow Amount</label>
@@ -26,7 +29,7 @@
 			<button
 				class="btn btn-primary"
 				@click="executeArbitrage"
-				:disabled="!arb.profitable"
+				:disabled="isDisabled(arb)"
 			>
 				Execute
 			</button>
@@ -72,6 +75,13 @@
 			},
 		},
 		methods: {
+			isDisabled(arb) {
+				// console.log(arb.profitable, arb.canTake, arb.enoughToBorrow)
+				return !arb.profitable || !this.enoughInLP(arb)
+			},
+			enoughInLP(arb) {
+				return arb.canTake && arb.enoughToBorrow
+			},
 			shortAddress(addr) {
 				if (!addr) return ""
 				return addr.slice(0, 6) + "..." + addr.slice(-4)
