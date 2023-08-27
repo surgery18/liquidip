@@ -4,7 +4,7 @@ import DexFactoryContract from "../../../build/contracts/DEXFactory.json"
 import Web3 from "web3"
 import DEX from "../../../build/contracts/DEX.json"
 
-const isTest = false
+const isTest = true
 const nodeUrl = isTest
 	? "ws://localhost:8545"
 	: "wss://crimson-purple-wildflower.bsc-testnet.discover.quiknode.pro/0a72bbf19b1572ede064556ee0073ef67af631ce/"
@@ -75,6 +75,7 @@ export const useWeb3Store = defineStore("web3", () => {
 		if (isTest) {
 			const network = networks[networks.length - 1]
 			networkId.value = network
+			// console.log(networks)
 		} else {
 			networkId.value = 97
 		}
@@ -95,7 +96,7 @@ export const useWeb3Store = defineStore("web3", () => {
 		// console.log(route)
 
 		// const borrowed = 1
-		const fee = borrowed * 0.05
+		const fee = borrowed * 0.0005 //0.05%
 
 		const aBalwei = await dac.methods
 			.estimateOutput(

@@ -2694,7 +2694,7 @@
                 }
               ]
             },
-            "name": "abi_decode_tuple_t_array$_t_struct$_Call_$2803_memory_ptr_$dyn_memory_ptr",
+            "name": "abi_decode_tuple_t_array$_t_struct$_Call_$2807_memory_ptr_$dyn_memory_ptr",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -4006,7 +4006,7 @@
                 }
               ]
             },
-            "name": "abi_encode_tuple_t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr__to_t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr__fromStack_reversed",
+            "name": "abi_encode_tuple_t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr__to_t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr__fromStack_reversed",
             "nodeType": "YulFunctionDefinition",
             "parameters": [
               {
@@ -4611,7 +4611,7 @@
           }
         ]
       },
-      "contents": "{\n    { }\n    function panic_error_0x41()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n    function allocate_memory_1351() -> memPtr\n    {\n        memPtr := mload(0x40)\n        let newFreePtr := add(memPtr, 0x40)\n        if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(0x40, newFreePtr)\n    }\n    function allocate_memory(size) -> memPtr\n    {\n        memPtr := mload(64)\n        let newFreePtr := add(memPtr, and(add(size, 31), not(31)))\n        if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n    }\n    function abi_decode_tuple_t_array$_t_struct$_Call_$2803_memory_ptr_$dyn_memory_ptr(headStart, dataEnd) -> value0\n    {\n        let _1 := 32\n        if slt(sub(dataEnd, headStart), _1) { revert(0, 0) }\n        let offset := calldataload(headStart)\n        let _2 := 0xffffffffffffffff\n        if gt(offset, _2) { revert(0, 0) }\n        let _3 := add(headStart, offset)\n        if iszero(slt(add(_3, 0x1f), dataEnd)) { revert(0, 0) }\n        let _4 := calldataload(_3)\n        if gt(_4, _2) { panic_error_0x41() }\n        let _5 := shl(5, _4)\n        let dst := allocate_memory(add(_5, _1))\n        let dst_1 := dst\n        mstore(dst, _4)\n        dst := add(dst, _1)\n        let srcEnd := add(add(_3, _5), _1)\n        if gt(srcEnd, dataEnd) { revert(0, 0) }\n        let src := add(_3, _1)\n        for { } lt(src, srcEnd) { src := add(src, _1) }\n        {\n            let innerOffset := calldataload(src)\n            if gt(innerOffset, _2)\n            {\n                let _6 := 0\n                revert(_6, _6)\n            }\n            let _7 := add(_3, innerOffset)\n            let _8 := 0x40\n            let _9 := not(31)\n            if slt(add(sub(dataEnd, _7), _9), _8)\n            {\n                let _10 := 0\n                revert(_10, _10)\n            }\n            let value := allocate_memory_1351()\n            let value_1 := calldataload(add(_7, _1))\n            if iszero(eq(value_1, and(value_1, sub(shl(160, 1), 1))))\n            {\n                let _11 := 0\n                revert(_11, _11)\n            }\n            mstore(value, value_1)\n            let offset_1 := calldataload(add(_7, _8))\n            if gt(offset_1, _2)\n            {\n                let _12 := 0\n                revert(_12, _12)\n            }\n            let _13 := add(_7, offset_1)\n            if iszero(slt(add(_13, 63), dataEnd))\n            {\n                let _14 := 0\n                revert(_14, _14)\n            }\n            let _15 := calldataload(add(_13, _1))\n            if gt(_15, _2) { panic_error_0x41() }\n            let array := allocate_memory(add(and(add(_15, 0x1f), _9), _1))\n            mstore(array, _15)\n            if gt(add(add(_13, _15), _8), dataEnd)\n            {\n                let _16 := 0\n                revert(_16, _16)\n            }\n            calldatacopy(add(array, _1), add(_13, _8), _15)\n            mstore(add(add(array, _15), _1), 0)\n            mstore(add(value, _1), array)\n            mstore(dst, value)\n            dst := add(dst, _1)\n        }\n        value0 := dst_1\n    }\n    function copy_memory_to_memory(src, dst, length)\n    {\n        let i := 0\n        for { } lt(i, length) { i := add(i, 32) }\n        {\n            mstore(add(dst, i), mload(add(src, i)))\n        }\n        if gt(i, length) { mstore(add(dst, length), 0) }\n    }\n    function abi_encode_bytes(value, pos) -> end\n    {\n        let length := mload(value)\n        mstore(pos, length)\n        copy_memory_to_memory(add(value, 0x20), add(pos, 0x20), length)\n        end := add(add(pos, and(add(length, 31), not(31))), 0x20)\n    }\n    function abi_encode_tuple_t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr__to_t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        let _1 := 32\n        let tail_1 := add(headStart, _1)\n        mstore(headStart, _1)\n        let pos := tail_1\n        let length := mload(value0)\n        mstore(tail_1, length)\n        let _2 := 64\n        pos := add(headStart, _2)\n        let tail_2 := add(add(headStart, shl(5, length)), _2)\n        let srcPtr := add(value0, _1)\n        let i := 0\n        for { } lt(i, length) { i := add(i, 1) }\n        {\n            mstore(pos, add(sub(tail_2, headStart), not(63)))\n            let _3 := mload(srcPtr)\n            mstore(tail_2, iszero(iszero(mload(_3))))\n            let memberValue0 := mload(add(_3, _1))\n            mstore(add(tail_2, _1), _2)\n            tail_2 := abi_encode_bytes(memberValue0, add(tail_2, _2))\n            srcPtr := add(srcPtr, _1)\n            pos := add(pos, _1)\n        }\n        tail := tail_2\n    }\n    function panic_error_0x32()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x32)\n        revert(0, 0x24)\n    }\n    function abi_encode_tuple_packed_t_bytes_memory_ptr__to_t_bytes_memory_ptr__nonPadded_inplace_fromStack_reversed(pos, value0) -> end\n    {\n        let length := mload(value0)\n        copy_memory_to_memory(add(value0, 0x20), pos, length)\n        end := add(pos, length)\n    }\n    function abi_encode_tuple_t_string_memory_ptr__to_t_string_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        tail := abi_encode_bytes(value0, add(headStart, 32))\n    }\n    function increment_t_uint256(value) -> ret\n    {\n        if eq(value, not(0))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x11)\n            revert(0, 0x24)\n        }\n        ret := add(value, 1)\n    }\n}",
+      "contents": "{\n    { }\n    function panic_error_0x41()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x41)\n        revert(0, 0x24)\n    }\n    function allocate_memory_1351() -> memPtr\n    {\n        memPtr := mload(0x40)\n        let newFreePtr := add(memPtr, 0x40)\n        if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(0x40, newFreePtr)\n    }\n    function allocate_memory(size) -> memPtr\n    {\n        memPtr := mload(64)\n        let newFreePtr := add(memPtr, and(add(size, 31), not(31)))\n        if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }\n        mstore(64, newFreePtr)\n    }\n    function abi_decode_tuple_t_array$_t_struct$_Call_$2807_memory_ptr_$dyn_memory_ptr(headStart, dataEnd) -> value0\n    {\n        let _1 := 32\n        if slt(sub(dataEnd, headStart), _1) { revert(0, 0) }\n        let offset := calldataload(headStart)\n        let _2 := 0xffffffffffffffff\n        if gt(offset, _2) { revert(0, 0) }\n        let _3 := add(headStart, offset)\n        if iszero(slt(add(_3, 0x1f), dataEnd)) { revert(0, 0) }\n        let _4 := calldataload(_3)\n        if gt(_4, _2) { panic_error_0x41() }\n        let _5 := shl(5, _4)\n        let dst := allocate_memory(add(_5, _1))\n        let dst_1 := dst\n        mstore(dst, _4)\n        dst := add(dst, _1)\n        let srcEnd := add(add(_3, _5), _1)\n        if gt(srcEnd, dataEnd) { revert(0, 0) }\n        let src := add(_3, _1)\n        for { } lt(src, srcEnd) { src := add(src, _1) }\n        {\n            let innerOffset := calldataload(src)\n            if gt(innerOffset, _2)\n            {\n                let _6 := 0\n                revert(_6, _6)\n            }\n            let _7 := add(_3, innerOffset)\n            let _8 := 0x40\n            let _9 := not(31)\n            if slt(add(sub(dataEnd, _7), _9), _8)\n            {\n                let _10 := 0\n                revert(_10, _10)\n            }\n            let value := allocate_memory_1351()\n            let value_1 := calldataload(add(_7, _1))\n            if iszero(eq(value_1, and(value_1, sub(shl(160, 1), 1))))\n            {\n                let _11 := 0\n                revert(_11, _11)\n            }\n            mstore(value, value_1)\n            let offset_1 := calldataload(add(_7, _8))\n            if gt(offset_1, _2)\n            {\n                let _12 := 0\n                revert(_12, _12)\n            }\n            let _13 := add(_7, offset_1)\n            if iszero(slt(add(_13, 63), dataEnd))\n            {\n                let _14 := 0\n                revert(_14, _14)\n            }\n            let _15 := calldataload(add(_13, _1))\n            if gt(_15, _2) { panic_error_0x41() }\n            let array := allocate_memory(add(and(add(_15, 0x1f), _9), _1))\n            mstore(array, _15)\n            if gt(add(add(_13, _15), _8), dataEnd)\n            {\n                let _16 := 0\n                revert(_16, _16)\n            }\n            calldatacopy(add(array, _1), add(_13, _8), _15)\n            mstore(add(add(array, _15), _1), 0)\n            mstore(add(value, _1), array)\n            mstore(dst, value)\n            dst := add(dst, _1)\n        }\n        value0 := dst_1\n    }\n    function copy_memory_to_memory(src, dst, length)\n    {\n        let i := 0\n        for { } lt(i, length) { i := add(i, 32) }\n        {\n            mstore(add(dst, i), mload(add(src, i)))\n        }\n        if gt(i, length) { mstore(add(dst, length), 0) }\n    }\n    function abi_encode_bytes(value, pos) -> end\n    {\n        let length := mload(value)\n        mstore(pos, length)\n        copy_memory_to_memory(add(value, 0x20), add(pos, 0x20), length)\n        end := add(add(pos, and(add(length, 31), not(31))), 0x20)\n    }\n    function abi_encode_tuple_t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr__to_t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        let _1 := 32\n        let tail_1 := add(headStart, _1)\n        mstore(headStart, _1)\n        let pos := tail_1\n        let length := mload(value0)\n        mstore(tail_1, length)\n        let _2 := 64\n        pos := add(headStart, _2)\n        let tail_2 := add(add(headStart, shl(5, length)), _2)\n        let srcPtr := add(value0, _1)\n        let i := 0\n        for { } lt(i, length) { i := add(i, 1) }\n        {\n            mstore(pos, add(sub(tail_2, headStart), not(63)))\n            let _3 := mload(srcPtr)\n            mstore(tail_2, iszero(iszero(mload(_3))))\n            let memberValue0 := mload(add(_3, _1))\n            mstore(add(tail_2, _1), _2)\n            tail_2 := abi_encode_bytes(memberValue0, add(tail_2, _2))\n            srcPtr := add(srcPtr, _1)\n            pos := add(pos, _1)\n        }\n        tail := tail_2\n    }\n    function panic_error_0x32()\n    {\n        mstore(0, shl(224, 0x4e487b71))\n        mstore(4, 0x32)\n        revert(0, 0x24)\n    }\n    function abi_encode_tuple_packed_t_bytes_memory_ptr__to_t_bytes_memory_ptr__nonPadded_inplace_fromStack_reversed(pos, value0) -> end\n    {\n        let length := mload(value0)\n        copy_memory_to_memory(add(value0, 0x20), pos, length)\n        end := add(pos, length)\n    }\n    function abi_encode_tuple_t_string_memory_ptr__to_t_string_memory_ptr__fromStack_reversed(headStart, value0) -> tail\n    {\n        mstore(headStart, 32)\n        tail := abi_encode_bytes(value0, add(headStart, 32))\n    }\n    function increment_t_uint256(value) -> ret\n    {\n        if eq(value, not(0))\n        {\n            mstore(0, shl(224, 0x4e487b71))\n            mstore(4, 0x11)\n            revert(0, 0x24)\n        }\n        ret := add(value, 1)\n    }\n}",
       "id": 18,
       "language": "Yul",
       "name": "#utility.yul"
@@ -4625,15 +4625,15 @@
     "absolutePath": "project:/contracts/Multicall.sol",
     "exportedSymbols": {
       "Multicall": [
-        2884
+        2888
       ]
     },
-    "id": 2885,
+    "id": 2889,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2798,
+        "id": 2802,
         "literals": [
           "solidity",
           "^",
@@ -4650,9 +4650,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2884,
+        "id": 2888,
         "linearizedBaseContracts": [
-          2884
+          2888
         ],
         "name": "Multicall",
         "nameLocation": "66:9:12",
@@ -4660,16 +4660,16 @@
         "nodes": [
           {
             "canonicalName": "Multicall.Call",
-            "id": 2803,
+            "id": 2807,
             "members": [
               {
                 "constant": false,
-                "id": 2800,
+                "id": 2804,
                 "mutability": "mutable",
                 "name": "target",
                 "nameLocation": "112:6:12",
                 "nodeType": "VariableDeclaration",
-                "scope": 2803,
+                "scope": 2807,
                 "src": "104:14:12",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -4678,7 +4678,7 @@
                   "typeString": "address"
                 },
                 "typeName": {
-                  "id": 2799,
+                  "id": 2803,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "104:7:12",
@@ -4692,12 +4692,12 @@
               },
               {
                 "constant": false,
-                "id": 2802,
+                "id": 2806,
                 "mutability": "mutable",
                 "name": "data",
                 "nameLocation": "134:4:12",
                 "nodeType": "VariableDeclaration",
-                "scope": 2803,
+                "scope": 2807,
                 "src": "128:10:12",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -4706,7 +4706,7 @@
                   "typeString": "bytes"
                 },
                 "typeName": {
-                  "id": 2801,
+                  "id": 2805,
                   "name": "bytes",
                   "nodeType": "ElementaryTypeName",
                   "src": "128:5:12",
@@ -4721,22 +4721,22 @@
             "name": "Call",
             "nameLocation": "89:4:12",
             "nodeType": "StructDefinition",
-            "scope": 2884,
+            "scope": 2888,
             "src": "82:63:12",
             "visibility": "public"
           },
           {
             "canonicalName": "Multicall.CallResult",
-            "id": 2808,
+            "id": 2812,
             "members": [
               {
                 "constant": false,
-                "id": 2805,
+                "id": 2809,
                 "mutability": "mutable",
                 "name": "error",
                 "nameLocation": "184:5:12",
                 "nodeType": "VariableDeclaration",
-                "scope": 2808,
+                "scope": 2812,
                 "src": "179:10:12",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -4745,7 +4745,7 @@
                   "typeString": "bool"
                 },
                 "typeName": {
-                  "id": 2804,
+                  "id": 2808,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "179:4:12",
@@ -4758,12 +4758,12 @@
               },
               {
                 "constant": false,
-                "id": 2807,
+                "id": 2811,
                 "mutability": "mutable",
                 "name": "result",
                 "nameLocation": "205:6:12",
                 "nodeType": "VariableDeclaration",
-                "scope": 2808,
+                "scope": 2812,
                 "src": "199:12:12",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -4772,7 +4772,7 @@
                   "typeString": "bytes"
                 },
                 "typeName": {
-                  "id": 2806,
+                  "id": 2810,
                   "name": "bytes",
                   "nodeType": "ElementaryTypeName",
                   "src": "199:5:12",
@@ -4787,82 +4787,82 @@
             "name": "CallResult",
             "nameLocation": "158:10:12",
             "nodeType": "StructDefinition",
-            "scope": 2884,
+            "scope": 2888,
             "src": "151:67:12",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 2882,
+              "id": 2886,
               "nodeType": "Block",
               "src": "318:388:12",
               "statements": [
                 {
                   "assignments": [
-                    2823
+                    2827
                   ],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 2823,
+                      "id": 2827,
                       "mutability": "mutable",
                       "name": "_results",
                       "nameLocation": "348:8:12",
                       "nodeType": "VariableDeclaration",
-                      "scope": 2882,
+                      "scope": 2886,
                       "src": "328:28:12",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr",
+                        "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr",
                         "typeString": "struct Multicall.CallResult[]"
                       },
                       "typeName": {
                         "baseType": {
-                          "id": 2821,
+                          "id": 2825,
                           "nodeType": "UserDefinedTypeName",
                           "pathNode": {
-                            "id": 2820,
+                            "id": 2824,
                             "name": "CallResult",
                             "nodeType": "IdentifierPath",
-                            "referencedDeclaration": 2808,
+                            "referencedDeclaration": 2812,
                             "src": "328:10:12"
                           },
-                          "referencedDeclaration": 2808,
+                          "referencedDeclaration": 2812,
                           "src": "328:10:12",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_CallResult_$2808_storage_ptr",
+                            "typeIdentifier": "t_struct$_CallResult_$2812_storage_ptr",
                             "typeString": "struct Multicall.CallResult"
                           }
                         },
-                        "id": 2822,
+                        "id": 2826,
                         "nodeType": "ArrayTypeName",
                         "src": "328:12:12",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_storage_$dyn_storage_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_storage_$dyn_storage_ptr",
                           "typeString": "struct Multicall.CallResult[]"
                         }
                       },
                       "visibility": "internal"
                     }
                   ],
-                  "id": 2831,
+                  "id": 2835,
                   "initialValue": {
                     "arguments": [
                       {
                         "expression": {
-                          "id": 2828,
+                          "id": 2832,
                           "name": "_calls",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 2812,
+                          "referencedDeclaration": 2816,
                           "src": "376:6:12",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_array$_t_struct$_Call_$2803_memory_ptr_$dyn_memory_ptr",
+                            "typeIdentifier": "t_array$_t_struct$_Call_$2807_memory_ptr_$dyn_memory_ptr",
                             "typeString": "struct Multicall.Call memory[] memory"
                           }
                         },
-                        "id": 2829,
+                        "id": 2833,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -4883,7 +4883,7 @@
                           "typeString": "uint256"
                         }
                       ],
-                      "id": 2827,
+                      "id": 2831,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -4891,37 +4891,37 @@
                       "nodeType": "NewExpression",
                       "src": "359:16:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr_$",
+                        "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr_$",
                         "typeString": "function (uint256) pure returns (struct Multicall.CallResult memory[] memory)"
                       },
                       "typeName": {
                         "baseType": {
-                          "id": 2825,
+                          "id": 2829,
                           "nodeType": "UserDefinedTypeName",
                           "pathNode": {
-                            "id": 2824,
+                            "id": 2828,
                             "name": "CallResult",
                             "nodeType": "IdentifierPath",
-                            "referencedDeclaration": 2808,
+                            "referencedDeclaration": 2812,
                             "src": "363:10:12"
                           },
-                          "referencedDeclaration": 2808,
+                          "referencedDeclaration": 2812,
                           "src": "363:10:12",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_CallResult_$2808_storage_ptr",
+                            "typeIdentifier": "t_struct$_CallResult_$2812_storage_ptr",
                             "typeString": "struct Multicall.CallResult"
                           }
                         },
-                        "id": 2826,
+                        "id": 2830,
                         "nodeType": "ArrayTypeName",
                         "src": "363:12:12",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_storage_$dyn_storage_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_storage_$dyn_storage_ptr",
                           "typeString": "struct Multicall.CallResult[]"
                         }
                       }
                     },
-                    "id": 2830,
+                    "id": 2834,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -4932,7 +4932,7 @@
                     "src": "359:31:12",
                     "tryCall": false,
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr",
                       "typeString": "struct Multicall.CallResult memory[] memory"
                     }
                   },
@@ -4941,71 +4941,71 @@
                 },
                 {
                   "body": {
-                    "id": 2878,
+                    "id": 2882,
                     "nodeType": "Block",
                     "src": "444:230:12",
                     "statements": [
                       {
                         "assignments": [
-                          2845
+                          2849
                         ],
                         "declarations": [
                           {
                             "constant": false,
-                            "id": 2845,
+                            "id": 2849,
                             "mutability": "mutable",
                             "name": "_call",
                             "nameLocation": "470:5:12",
                             "nodeType": "VariableDeclaration",
-                            "scope": 2878,
+                            "scope": 2882,
                             "src": "458:17:12",
                             "stateVariable": false,
                             "storageLocation": "memory",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_Call_$2803_memory_ptr",
+                              "typeIdentifier": "t_struct$_Call_$2807_memory_ptr",
                               "typeString": "struct Multicall.Call"
                             },
                             "typeName": {
-                              "id": 2844,
+                              "id": 2848,
                               "nodeType": "UserDefinedTypeName",
                               "pathNode": {
-                                "id": 2843,
+                                "id": 2847,
                                 "name": "Call",
                                 "nodeType": "IdentifierPath",
-                                "referencedDeclaration": 2803,
+                                "referencedDeclaration": 2807,
                                 "src": "458:4:12"
                               },
-                              "referencedDeclaration": 2803,
+                              "referencedDeclaration": 2807,
                               "src": "458:4:12",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Call_$2803_storage_ptr",
+                                "typeIdentifier": "t_struct$_Call_$2807_storage_ptr",
                                 "typeString": "struct Multicall.Call"
                               }
                             },
                             "visibility": "internal"
                           }
                         ],
-                        "id": 2849,
+                        "id": 2853,
                         "initialValue": {
                           "baseExpression": {
-                            "id": 2846,
+                            "id": 2850,
                             "name": "_calls",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2812,
+                            "referencedDeclaration": 2816,
                             "src": "478:6:12",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_array$_t_struct$_Call_$2803_memory_ptr_$dyn_memory_ptr",
+                              "typeIdentifier": "t_array$_t_struct$_Call_$2807_memory_ptr_$dyn_memory_ptr",
                               "typeString": "struct Multicall.Call memory[] memory"
                             }
                           },
-                          "id": 2848,
+                          "id": 2852,
                           "indexExpression": {
-                            "id": 2847,
+                            "id": 2851,
                             "name": "i",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 2833,
+                            "referencedDeclaration": 2837,
                             "src": "485:1:12",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -5019,7 +5019,7 @@
                           "nodeType": "IndexAccess",
                           "src": "478:9:12",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_Call_$2803_memory_ptr",
+                            "typeIdentifier": "t_struct$_Call_$2807_memory_ptr",
                             "typeString": "struct Multicall.Call memory"
                           }
                         },
@@ -5028,18 +5028,18 @@
                       },
                       {
                         "assignments": [
-                          2851,
-                          2853
+                          2855,
+                          2857
                         ],
                         "declarations": [
                           {
                             "constant": false,
-                            "id": 2851,
+                            "id": 2855,
                             "mutability": "mutable",
                             "name": "success",
                             "nameLocation": "507:7:12",
                             "nodeType": "VariableDeclaration",
-                            "scope": 2878,
+                            "scope": 2882,
                             "src": "502:12:12",
                             "stateVariable": false,
                             "storageLocation": "default",
@@ -5048,7 +5048,7 @@
                               "typeString": "bool"
                             },
                             "typeName": {
-                              "id": 2850,
+                              "id": 2854,
                               "name": "bool",
                               "nodeType": "ElementaryTypeName",
                               "src": "502:4:12",
@@ -5061,12 +5061,12 @@
                           },
                           {
                             "constant": false,
-                            "id": 2853,
+                            "id": 2857,
                             "mutability": "mutable",
                             "name": "data",
                             "nameLocation": "529:4:12",
                             "nodeType": "VariableDeclaration",
-                            "scope": 2878,
+                            "scope": 2882,
                             "src": "516:17:12",
                             "stateVariable": false,
                             "storageLocation": "memory",
@@ -5075,7 +5075,7 @@
                               "typeString": "bytes"
                             },
                             "typeName": {
-                              "id": 2852,
+                              "id": 2856,
                               "name": "bytes",
                               "nodeType": "ElementaryTypeName",
                               "src": "516:5:12",
@@ -5087,30 +5087,30 @@
                             "visibility": "internal"
                           }
                         ],
-                        "id": 2860,
+                        "id": 2864,
                         "initialValue": {
                           "arguments": [
                             {
                               "expression": {
-                                "id": 2857,
+                                "id": 2861,
                                 "name": "_call",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2845,
+                                "referencedDeclaration": 2849,
                                 "src": "555:5:12",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_Call_$2803_memory_ptr",
+                                  "typeIdentifier": "t_struct$_Call_$2807_memory_ptr",
                                   "typeString": "struct Multicall.Call memory"
                                 }
                               },
-                              "id": 2858,
+                              "id": 2862,
                               "isConstant": false,
                               "isLValue": true,
                               "isPure": false,
                               "lValueRequested": false,
                               "memberName": "data",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 2802,
+                              "referencedDeclaration": 2806,
                               "src": "555:10:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_bytes_memory_ptr",
@@ -5127,32 +5127,32 @@
                             ],
                             "expression": {
                               "expression": {
-                                "id": 2854,
+                                "id": 2858,
                                 "name": "_call",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2845,
+                                "referencedDeclaration": 2849,
                                 "src": "537:5:12",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_struct$_Call_$2803_memory_ptr",
+                                  "typeIdentifier": "t_struct$_Call_$2807_memory_ptr",
                                   "typeString": "struct Multicall.Call memory"
                                 }
                               },
-                              "id": 2855,
+                              "id": 2859,
                               "isConstant": false,
                               "isLValue": true,
                               "isPure": false,
                               "lValueRequested": false,
                               "memberName": "target",
                               "nodeType": "MemberAccess",
-                              "referencedDeclaration": 2800,
+                              "referencedDeclaration": 2804,
                               "src": "537:12:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_address",
                                 "typeString": "address"
                               }
                             },
-                            "id": 2856,
+                            "id": 2860,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -5165,7 +5165,7 @@
                               "typeString": "function (bytes memory) payable returns (bool,bytes memory)"
                             }
                           },
-                          "id": 2859,
+                          "id": 2863,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -5187,11 +5187,11 @@
                         "expression": {
                           "arguments": [
                             {
-                              "id": 2862,
+                              "id": 2866,
                               "name": "success",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2851,
+                              "referencedDeclaration": 2855,
                               "src": "588:7:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_bool",
@@ -5201,11 +5201,11 @@
                             {
                               "arguments": [
                                 {
-                                  "id": 2865,
+                                  "id": 2869,
                                   "name": "data",
                                   "nodeType": "Identifier",
                                   "overloadedDeclarations": [],
-                                  "referencedDeclaration": 2853,
+                                  "referencedDeclaration": 2857,
                                   "src": "604:4:12",
                                   "typeDescriptions": {
                                     "typeIdentifier": "t_bytes_memory_ptr",
@@ -5220,7 +5220,7 @@
                                     "typeString": "bytes memory"
                                   }
                                 ],
-                                "id": 2864,
+                                "id": 2868,
                                 "isConstant": false,
                                 "isLValue": false,
                                 "isPure": true,
@@ -5232,14 +5232,14 @@
                                   "typeString": "type(string storage pointer)"
                                 },
                                 "typeName": {
-                                  "id": 2863,
+                                  "id": 2867,
                                   "name": "string",
                                   "nodeType": "ElementaryTypeName",
                                   "src": "597:6:12",
                                   "typeDescriptions": {}
                                 }
                               },
-                              "id": 2866,
+                              "id": 2870,
                               "isConstant": false,
                               "isLValue": false,
                               "isPure": false,
@@ -5266,7 +5266,7 @@
                                 "typeString": "string memory"
                               }
                             ],
-                            "id": 2861,
+                            "id": 2865,
                             "name": "require",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [
@@ -5280,7 +5280,7 @@
                               "typeString": "function (bool,string memory) pure"
                             }
                           },
-                          "id": 2867,
+                          "id": 2871,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -5295,37 +5295,37 @@
                             "typeString": "tuple()"
                           }
                         },
-                        "id": 2868,
+                        "id": 2872,
                         "nodeType": "ExpressionStatement",
                         "src": "580:30:12"
                       },
                       {
                         "expression": {
-                          "id": 2876,
+                          "id": 2880,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
                           "lValueRequested": false,
                           "leftHandSide": {
                             "baseExpression": {
-                              "id": 2869,
+                              "id": 2873,
                               "name": "_results",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2823,
+                              "referencedDeclaration": 2827,
                               "src": "624:8:12",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr",
+                                "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr",
                                 "typeString": "struct Multicall.CallResult memory[] memory"
                               }
                             },
-                            "id": 2871,
+                            "id": 2875,
                             "indexExpression": {
-                              "id": 2870,
+                              "id": 2874,
                               "name": "i",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2833,
+                              "referencedDeclaration": 2837,
                               "src": "633:1:12",
                               "typeDescriptions": {
                                 "typeIdentifier": "t_uint256",
@@ -5339,7 +5339,7 @@
                             "nodeType": "IndexAccess",
                             "src": "624:11:12",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_CallResult_$2808_memory_ptr",
+                              "typeIdentifier": "t_struct$_CallResult_$2812_memory_ptr",
                               "typeString": "struct Multicall.CallResult memory"
                             }
                           },
@@ -5348,11 +5348,11 @@
                           "rightHandSide": {
                             "arguments": [
                               {
-                                "id": 2873,
+                                "id": 2877,
                                 "name": "success",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2851,
+                                "referencedDeclaration": 2855,
                                 "src": "649:7:12",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_bool",
@@ -5360,11 +5360,11 @@
                                 }
                               },
                               {
-                                "id": 2874,
+                                "id": 2878,
                                 "name": "data",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 2853,
+                                "referencedDeclaration": 2857,
                                 "src": "658:4:12",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_bytes_memory_ptr",
@@ -5383,18 +5383,18 @@
                                   "typeString": "bytes memory"
                                 }
                               ],
-                              "id": 2872,
+                              "id": 2876,
                               "name": "CallResult",
                               "nodeType": "Identifier",
                               "overloadedDeclarations": [],
-                              "referencedDeclaration": 2808,
+                              "referencedDeclaration": 2812,
                               "src": "638:10:12",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_type$_t_struct$_CallResult_$2808_storage_ptr_$",
+                                "typeIdentifier": "t_type$_t_struct$_CallResult_$2812_storage_ptr_$",
                                 "typeString": "type(struct Multicall.CallResult storage pointer)"
                               }
                             },
-                            "id": 2875,
+                            "id": 2879,
                             "isConstant": false,
                             "isLValue": false,
                             "isPure": false,
@@ -5405,17 +5405,17 @@
                             "src": "638:25:12",
                             "tryCall": false,
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_CallResult_$2808_memory_ptr",
+                              "typeIdentifier": "t_struct$_CallResult_$2812_memory_ptr",
                               "typeString": "struct Multicall.CallResult memory"
                             }
                           },
                           "src": "624:39:12",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_CallResult_$2808_memory_ptr",
+                            "typeIdentifier": "t_struct$_CallResult_$2812_memory_ptr",
                             "typeString": "struct Multicall.CallResult memory"
                           }
                         },
-                        "id": 2877,
+                        "id": 2881,
                         "nodeType": "ExpressionStatement",
                         "src": "624:39:12"
                       }
@@ -5426,17 +5426,17 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 2839,
+                    "id": 2843,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
-                      "id": 2836,
+                      "id": 2840,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 2833,
+                      "referencedDeclaration": 2837,
                       "src": "420:1:12",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
@@ -5447,18 +5447,18 @@
                     "operator": "<",
                     "rightExpression": {
                       "expression": {
-                        "id": 2837,
+                        "id": 2841,
                         "name": "_calls",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2812,
+                        "referencedDeclaration": 2816,
                         "src": "424:6:12",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_Call_$2803_memory_ptr_$dyn_memory_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_Call_$2807_memory_ptr_$dyn_memory_ptr",
                           "typeString": "struct Multicall.Call memory[] memory"
                         }
                       },
-                      "id": 2838,
+                      "id": 2842,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -5477,20 +5477,20 @@
                       "typeString": "bool"
                     }
                   },
-                  "id": 2879,
+                  "id": 2883,
                   "initializationExpression": {
                     "assignments": [
-                      2833
+                      2837
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 2833,
+                        "id": 2837,
                         "mutability": "mutable",
                         "name": "i",
                         "nameLocation": "413:1:12",
                         "nodeType": "VariableDeclaration",
-                        "scope": 2879,
+                        "scope": 2883,
                         "src": "405:9:12",
                         "stateVariable": false,
                         "storageLocation": "default",
@@ -5499,7 +5499,7 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 2832,
+                          "id": 2836,
                           "name": "uint256",
                           "nodeType": "ElementaryTypeName",
                           "src": "405:7:12",
@@ -5511,10 +5511,10 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 2835,
+                    "id": 2839,
                     "initialValue": {
                       "hexValue": "30",
-                      "id": 2834,
+                      "id": 2838,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
@@ -5533,7 +5533,7 @@
                   },
                   "loopExpression": {
                     "expression": {
-                      "id": 2841,
+                      "id": 2845,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -5543,11 +5543,11 @@
                       "prefix": false,
                       "src": "439:3:12",
                       "subExpression": {
-                        "id": 2840,
+                        "id": 2844,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 2833,
+                        "referencedDeclaration": 2837,
                         "src": "439:1:12",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -5559,7 +5559,7 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 2842,
+                    "id": 2846,
                     "nodeType": "ExpressionStatement",
                     "src": "439:3:12"
                   },
@@ -5568,26 +5568,26 @@
                 },
                 {
                   "expression": {
-                    "id": 2880,
+                    "id": 2884,
                     "name": "_results",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 2823,
+                    "referencedDeclaration": 2827,
                     "src": "691:8:12",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr",
                       "typeString": "struct Multicall.CallResult memory[] memory"
                     }
                   },
-                  "functionReturnParameters": 2818,
-                  "id": 2881,
+                  "functionReturnParameters": 2822,
+                  "id": 2885,
                   "nodeType": "Return",
                   "src": "684:15:12"
                 }
               ]
             },
             "functionSelector": "252dba42",
-            "id": 2883,
+            "id": 2887,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
@@ -5595,47 +5595,47 @@
             "nameLocation": "233:9:12",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 2813,
+              "id": 2817,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2812,
+                  "id": 2816,
                   "mutability": "mutable",
                   "name": "_calls",
                   "nameLocation": "266:6:12",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2883,
+                  "scope": 2887,
                   "src": "252:20:12",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_Call_$2803_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_Call_$2807_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct Multicall.Call[]"
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 2810,
+                      "id": 2814,
                       "nodeType": "UserDefinedTypeName",
                       "pathNode": {
-                        "id": 2809,
+                        "id": 2813,
                         "name": "Call",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 2803,
+                        "referencedDeclaration": 2807,
                         "src": "252:4:12"
                       },
-                      "referencedDeclaration": 2803,
+                      "referencedDeclaration": 2807,
                       "src": "252:4:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Call_$2803_storage_ptr",
+                        "typeIdentifier": "t_struct$_Call_$2807_storage_ptr",
                         "typeString": "struct Multicall.Call"
                       }
                     },
-                    "id": 2811,
+                    "id": 2815,
                     "nodeType": "ArrayTypeName",
                     "src": "252:6:12",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_Call_$2803_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_Call_$2807_storage_$dyn_storage_ptr",
                       "typeString": "struct Multicall.Call[]"
                     }
                   },
@@ -5645,47 +5645,47 @@
               "src": "242:36:12"
             },
             "returnParameters": {
-              "id": 2818,
+              "id": 2822,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 2817,
+                  "id": 2821,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 2883,
+                  "scope": 2887,
                   "src": "297:19:12",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_memory_ptr_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_memory_ptr_$dyn_memory_ptr",
                     "typeString": "struct Multicall.CallResult[]"
                   },
                   "typeName": {
                     "baseType": {
-                      "id": 2815,
+                      "id": 2819,
                       "nodeType": "UserDefinedTypeName",
                       "pathNode": {
-                        "id": 2814,
+                        "id": 2818,
                         "name": "CallResult",
                         "nodeType": "IdentifierPath",
-                        "referencedDeclaration": 2808,
+                        "referencedDeclaration": 2812,
                         "src": "297:10:12"
                       },
-                      "referencedDeclaration": 2808,
+                      "referencedDeclaration": 2812,
                       "src": "297:10:12",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_CallResult_$2808_storage_ptr",
+                        "typeIdentifier": "t_struct$_CallResult_$2812_storage_ptr",
                         "typeString": "struct Multicall.CallResult"
                       }
                     },
-                    "id": 2816,
+                    "id": 2820,
                     "nodeType": "ArrayTypeName",
                     "src": "297:12:12",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_CallResult_$2808_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_CallResult_$2812_storage_$dyn_storage_ptr",
                       "typeString": "struct Multicall.CallResult[]"
                     }
                   },
@@ -5694,14 +5694,14 @@
               ],
               "src": "296:21:12"
             },
-            "scope": 2884,
+            "scope": 2888,
             "src": "224:482:12",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 2885,
+        "scope": 2889,
         "src": "57:651:12",
         "usedErrors": []
       }
@@ -5714,7 +5714,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.15",
-  "updatedAt": "2023-08-27T04:02:56.840Z",
+  "updatedAt": "2023-08-27T21:07:42.824Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

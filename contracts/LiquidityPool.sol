@@ -82,12 +82,14 @@ contract LiquidityPool is ERC20 {
     }
 
     function removeLiquidity(uint256 lpAmount) external {
+        uint256 _totalSupply = totalSupply;
         _burn(msg.sender, lpAmount);
+
         uint256 token0Reserve = token0.balanceOf(address(this));
         uint256 token1Reserve = token1.balanceOf(address(this));
 
-        uint256 token0Amount = (lpAmount * token0Reserve) / totalSupply;
-        uint256 token1Amount = (lpAmount * token1Reserve) / totalSupply;
+        uint256 token0Amount = (lpAmount * token0Reserve) / _totalSupply;
+        uint256 token1Amount = (lpAmount * token1Reserve) / _totalSupply;
 
         require(token0Amount > 0 && token1Amount > 0, "Insufficient liquidity");
         require(
@@ -182,7 +184,7 @@ contract LiquidityPool is ERC20 {
             : token1.balanceOf(address(this));
 
         uint amountOUtBeforeFee = (amountIn * tokenOutReserve) / tokenInReserve;
-        uint feeAmount = (amountOUtBeforeFee * 3) / 1000;
+        uint feeAmount = (amountOUtBeforeFee * 3) / 1000; //0.3%
         return amountOUtBeforeFee - feeAmount;
     }
 
@@ -195,7 +197,7 @@ contract LiquidityPool is ERC20 {
         uint balanceBefore = IERC20(token).balanceOf(address(this));
         require(balanceBefore >= amount, "Not enough liquidity in pool");
 
-        uint fee = (amount * 5) / 10000;
+        uint fee = (amount * 5) / 10000; //0.05%
 
         require(
             IERC20(token).transfer(borrower, amount),
@@ -210,7 +212,7 @@ contract LiquidityPool is ERC20 {
 
         uint balanceAfter = IERC20(token).balanceOf(address(this));
         require(
-            balanceAfter == balanceBefore + fee,
+            balanceAfter >= balanceBefore + fee,
             "Flash loan hasn't been repaid with fee"
         );
 

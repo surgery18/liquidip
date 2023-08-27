@@ -29,7 +29,7 @@
 			return { store }
 		},
 		async created() {
-			console.log("Connect button created")
+			// console.log("Connect button created")
 			try {
 				await this.store.initializeWeb3()
 				await this.store.loadContracts()

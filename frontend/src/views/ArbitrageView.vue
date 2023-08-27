@@ -48,7 +48,7 @@
 	import NavBar from "@/components/NavBar.vue"
 	import CreateArbitrageDialog from "@/components/CreateArbitrageDialog.vue"
 	import ArbitrageCard from "@/components/ArbitrageCard.vue"
-	import TokenSelectionModal from "../components/TokenSelectionModal.vue"
+	import TokenSelectionModal from "@/components/TokenSelectionModal.vue"
 	import { useWeb3Store } from "@/stores/web3"
 	import LiquidityPoolFactory from "../../../build/contracts/LiquidityPoolFactory.json"
 	import IERC20 from "../../../build/contracts/IERC20.json"
@@ -186,6 +186,10 @@
 			async executeArbitrage(borrowAmount, id) {
 				const arb = this.arbitrages[id]
 				const web3 = this.web3.web3
+				// console.log(
+				// 	borrowAmount,
+				// 	web3.utils.toWei(borrowAmount.toString(), "ether")
+				// )
 
 				startLoading()
 				try {
