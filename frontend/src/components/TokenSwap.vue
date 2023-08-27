@@ -17,7 +17,9 @@
 					class="token-symbol-content text-end"
 					@click="openTokenModal('from')"
 				>
-					<span class="balance-display"> Balance: {{ balanceSwapFrom }} </span>
+					<span class="balance-display" v-if="web3.currentAddress">
+						Balance: {{ balanceSwapFrom }}
+					</span>
 					<span
 						class="token-symbol"
 						v-text="swapFrom.symbol"
@@ -50,7 +52,9 @@
 					class="token-symbol-content text-end"
 					@click="openTokenModal('to')"
 				>
-					<span class="balance-display"> Balance: {{ balanceSwapTo }} </span>
+					<span class="balance-display" v-if="web3.currentAddress">
+						Balance: {{ balanceSwapTo }}
+					</span>
 					<span
 						class="token-symbol"
 						v-text="swapTo.symbol"
@@ -65,7 +69,15 @@
 			>
 
 			<!-- Swap Button -->
-			<button class="btn-swap" @click="swap" v-text="btnText"></button>
+			<button
+				class="btn-swap"
+				@click="swap"
+				v-text="btnText"
+				v-if="web3.currentAddress"
+			></button>
+			<button class="btn-swap" v-else @click="web3.connect">
+				Connect Wallet
+			</button>
 		</div>
 	</div>
 </template>
@@ -75,6 +87,9 @@
 	import { useWeb3Store } from "@/stores/web3"
 	// import LiquidityPool from "../../../build/contracts/LiquidityPool.json"
 	import IERC20 from "../../../build/contracts/IERC20.json"
+	import WBNB from "../../../build/contracts/WBNB.json"
+	import PriceConsumerV3 from "../../../build/contracts/PriceConsumerV3.json"
+
 	export default {
 		name: "TokenSwap",
 		props: {
@@ -111,6 +126,18 @@
 		// 	this.swapFrom = { ...this.tokens?.[0] } ?? { symbol: "" }
 		// },
 		watch: {
+			dex: {
+				handler(v, ov) {
+					if (v.dex != ov.dex) {
+						this.payAmount = ""
+						this.swapTo = { symbol: "" }
+						this.swapFrom = {
+							symbol: "",
+						}
+						console.log(v)
+					}
+				},
+			},
 			tokens: {
 				handler(v) {
 					if (v.length > 0) {
@@ -128,6 +155,8 @@
 				await this.getBtnText()
 				if (newVal === "" || +newVal === 0) {
 					this.receiveAmount = ""
+					this.usdSwapTo = "0.00"
+					this.usdSwapFrom = "0.00"
 					return
 				}
 				this.receiveAmount = await this.getOutputTokens(
@@ -135,6 +164,7 @@
 					this.swapTo,
 					newVal
 				)
+				await this.getUSDAmounts()
 			},
 			// async receiveAmount(newVal) {
 			// 	// if (!this.swapFrom.symbol) {
@@ -218,7 +248,7 @@
 					//update balances
 					await this.getBalances()
 					//update usd amount
-					await this.getUSDAmounts()
+					// await this.getUSDAmounts()
 
 					this.payAmount = ""
 					this.$emit("swapped")
@@ -227,8 +257,72 @@
 				}
 				stopLoading()
 			},
-			async getUSDAmounts() {},
+			async getUSDAmounts() {
+				const web3 = this.web3.web3
+				const nid = this.web3.networkId
+				const pc = new web3.eth.Contract(
+					PriceConsumerV3.abi,
+					PriceConsumerV3.networks[nid].address
+				)
+				const priceWei = await pc.methods.getLatestData().call()
+				const price = +priceWei / 10 ** 8
+
+				if (this.swapFrom.symbol && +this.payAmount > 0) {
+					//convert output amount to WBNB if
+					//1. swapTo symbol is not WBNB
+					//2. If token not WBNB
+					let output
+					if (this.swapTo.symbol === "WBNB") {
+						output = this.receiveAmount
+					} else if (this.swapFrom.symbol === "WBNB") {
+						output = this.payAmount
+					} else {
+						//convert to WBNB and get the expect output
+						const dex = this.dex.dexContract
+						const route = await dex.methods
+							.getRoute(this.swapFrom.address, WBNB.networks[nid].address)
+							.call()
+
+						const eo = await dex.methods
+							.estimateOutput(route, web3.utils.toWei(this.payAmount, "ether"))
+							.call()
+						output = web3.utils.fromWei(eo, "ether")
+					}
+					// console.log(price, output)
+					this.usdSwapFrom = (price * +output).toFixed(2)
+				} else {
+					this.usdSwapFrom = "0.00"
+				}
+
+				if (this.swapTo.symbol && +this.receiveAmount > 0) {
+					//convert output amount to WBNB if
+					//2. If token not WBNB
+					let output
+					if (this.swapTo.symbol === "WBNB") {
+						output = this.receiveAmount
+					} else {
+						//convert to WBNB and get the expect output
+						const dex = this.dex.dexContract
+						const route = await dex.methods
+							.getRoute(this.swapTo.address, WBNB.networks[nid].address)
+							.call()
+
+						const eo = await dex.methods
+							.estimateOutput(
+								route,
+								web3.utils.toWei(this.receiveAmount, "ether")
+							)
+							.call()
+						output = web3.utils.fromWei(eo, "ether")
+					}
+					// console.log(price, output)
+					this.usdSwapTo = (price * +output).toFixed(2)
+				} else {
+					this.usdSwapTo = "0.00"
+				}
+			},
 			async getBalances() {
+				if (!this.web3.currentAddress) return
 				const web3 = this.web3.web3
 				if (this.swapFrom.address) {
 					const token = new web3.eth.Contract(IERC20.abi, this.swapFrom.address)
@@ -276,6 +370,7 @@
 				}
 				await this.calcOnetoOne()
 				await this.getBtnText()
+				await this.getUSDAmounts()
 			},
 			openTokenModal(dir) {
 				// Logic to open the token modal
@@ -326,8 +421,6 @@
 				}
 
 				//only give the approval if needed
-				const web3 = this.web3.web3
-				const pa = web3.utils.toWei(this.payAmount, "ether")
 				const aeth = await this.getAllowance()
 				if (+aeth == 0 || +aeth < +this.payAmount) {
 					this.btnText = "Approve & Swap"
@@ -336,6 +429,7 @@
 				}
 			},
 			async getAllowance() {
+				if (!this.web3.currentAddress) return
 				const web3 = this.web3.web3
 				const dexAddr = this.dex.dex.dex
 				const ftoken = new web3.eth.Contract(IERC20.abi, this.swapFrom.address)

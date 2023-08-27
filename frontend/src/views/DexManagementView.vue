@@ -8,9 +8,14 @@
 			<!-- Dex Tabs -->
 			<ul class="nav nav-tabs">
 				<li class="nav-item" v-for="(dex, id) in dexes" :key="dex">
-					<a class="nav-link" href="#" @click="showDex(dex)"
-						>Dex {{ id + 1 }}</a
+					<a
+						class="nav-link"
+						href="#"
+						@click="showDex(dex)"
+						:class="{ active: isActive(dex) }"
 					>
+						Dex {{ id + 1 }}
+					</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="#" @click="showDexModal = true">+</a>
@@ -18,6 +23,9 @@
 			</ul>
 
 			<div v-if="selectedDex">
+				<!-- Show Dex Address -->
+				<h5 class="dex-address my-2">Dex Address: {{ selectedDex.dex.dex }}</h5>
+
 				<!-- Token Swapping Mechanism (Top Section) -->
 				<token-swap
 					ref="swap"
@@ -94,8 +102,8 @@
 	import LiquidityPoolModal from "../components/LiquidityPoolModal.vue"
 	import AddLiquidityModal from "../components/AddLiquidityModal.vue"
 	import TokenSelectionModal from "../components/TokenSelectionModal.vue"
-	import TokenSwap from "../components/TokenSwap.vue"
-	import LiquidityPoolSelection from "../components/LiquidityPoolSelection.vue"
+	import TokenSwap from "@/components/TokenSwap.vue"
+	import LiquidityPoolSelection from "@/components/LiquidityPoolSelection.vue"
 	import WithdrawModal from "../components/WithdrawModal.vue"
 	import { startLoading, stopLoading } from "@/utils/eventbus"
 	import DEX from "../../../build/contracts/DEX.json"
@@ -138,6 +146,10 @@
 			return { web3, startLoading, stopLoading }
 		},
 		methods: {
+			isActive(dex) {
+				// console.log(this.selectedDex, dex)
+				return this.selectedDex?.dex?.dex === dex.dex
+			},
 			swapped() {
 				this.showDex(this.selectedDex.dex)
 			},
@@ -245,20 +257,34 @@
 					const ta = new web3.eth.Contract(IERC20.abi, t0)
 					const tb = new web3.eth.Contract(IERC20.abi, t1)
 
-					const a = await ta.methods
-						.approve(
-							pool.contractAddress,
-							web3.utils.toWei(amountA.toString(), "ether")
-						)
-						.send({ from: this.web3.currentAddress })
-					// .encodeABI()
+					//TODO ONLY CALL APPROVE IF NEEDED
 
-					const b = await tb.methods
-						.approve(
-							pool.contractAddress,
-							web3.utils.toWei(amountB.toString(), "ether")
-						)
-						.send({ from: this.web3.currentAddress })
+					const aAllowance = await ta.methods
+						.allowance(this.web3.currentAddress, pool.contractAddress)
+						.call()
+					const aA = +web3.utils.fromWei(aAllowance, "ether")
+					if (aA < +amountA) {
+						await ta.methods
+							.approve(
+								pool.contractAddress,
+								web3.utils.toWei(amountA.toString(), "ether")
+							)
+							.send({ from: this.web3.currentAddress })
+					}
+
+					const bAllowance = await tb.methods
+						.allowance(this.web3.currentAddress, pool.contractAddress)
+						.call()
+					const aB = +web3.utils.fromWei(bAllowance, "ether")
+					if (aB < +amountB) {
+						await tb.methods
+							.approve(
+								pool.contractAddress,
+								web3.utils.toWei(amountB.toString(), "ether")
+							)
+							.send({ from: this.web3.currentAddress })
+					}
+
 					// .encodeABI()
 
 					// const mc = new web3.eth.Contract(
@@ -284,7 +310,7 @@
 					// 	.send({ from: this.web3.currentAddress })
 					// console.log(tx)
 
-					tx = await p.methods
+					const tx = await p.methods
 						.addLiquidity(
 							web3.utils.toWei(amountA.toString(), "ether"),
 							web3.utils.toWei(amountB.toString(), "ether")
@@ -335,6 +361,7 @@
 				stopLoading()
 				this.closeWithdrawModal()
 			},
+
 			closeWithdrawModal() {
 				this.selectedPool = null
 				this.showWithdrawModal = false

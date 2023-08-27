@@ -25,17 +25,30 @@
 							</button>
 						</router-link>
 					</div>
+					<div class="grid-item">
+						<button
+							class="btn btn-success btn-lg w-100"
+							@click="openWBNBModal"
+							:disabled="!web3.currentAddress"
+						>
+							WBNB Functions
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
+		<WBNBModal :show="showWBNBModal" @close="closeWBNBModal" />
 	</div>
 </template>
 
 <script>
 	import ConnectWallet from "../components/ConnectWallet.vue"
+	import WBNBModal from "../components/WBNBModal.vue"
+	import { useWeb3Store } from "@/stores/web3"
+
 	export default {
 		name: "HomeView",
-		components: { ConnectWallet },
+		components: { ConnectWallet, WBNBModal },
 		data() {
 			return {
 				gridItems: [
@@ -43,9 +56,20 @@
 					{ title: "Arbitrage", route: "/arbitrage" },
 					// { title: "View DEXs", route: "/dex-list" },
 				],
+				showWBNBModal: false,
 			}
 		},
-		async created() {},
+		setup() {
+			return { web3: useWeb3Store() }
+		},
+		methods: {
+			openWBNBModal() {
+				this.showWBNBModal = true
+			},
+			closeWBNBModal() {
+				this.showWBNBModal = false
+			},
+		},
 	}
 </script>
 

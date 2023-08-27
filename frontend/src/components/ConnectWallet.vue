@@ -30,9 +30,11 @@
 		},
 		async created() {
 			console.log("Connect button created")
-			await this.store.initializeWeb3()
-			await this.store.loadContracts()
-			this.$emit("contractsLoaded")
+			try {
+				await this.store.initializeWeb3()
+				await this.store.loadContracts()
+				this.$emit("contractsLoaded")
+			} catch (e) {}
 		},
 	}
 </script>

@@ -17,7 +17,7 @@
 						<th>Amount</th>
 						<th>Token B</th>
 						<th>Amount</th>
-						<th>Actions</th>
+						<th v-if="web3.currentAddress">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,7 +36,7 @@
 						<td>{{ pool.aBal }}</td>
 						<td>{{ pool.bSymbol }}</td>
 						<td>{{ pool.bBal }}</td>
-						<td>
+						<td v-if="web3.currentAddress">
 							<button class="btn btn-primary mx-1" @click="openAddModal(pool)">
 								<i class="bi bi-droplet"></i>
 							</button>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+	import { useWeb3Store } from "@/stores/web3"
 	export default {
 		name: "LiquidityPoolSection",
 		props: {
@@ -66,6 +67,9 @@
 				type: Object,
 				required: true,
 			},
+		},
+		setup() {
+			return { web3: useWeb3Store() }
 		},
 		methods: {
 			copyToClipboard(text) {

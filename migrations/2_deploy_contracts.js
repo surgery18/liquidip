@@ -3,7 +3,7 @@ const WBNB = artifacts.require("WBNB")
 const TokenA = artifacts.require("TokenA")
 const TokenB = artifacts.require("TokenB")
 const ArbitrageFactory = artifacts.require("ArbitrageFactory")
-const Multicall = artifacts.require("Multicall")
+// const Multicall = artifacts.require("Multicall")
 
 module.exports = async function (deployer, network, accounts) {
 	//Deploy TEST COINS
@@ -11,8 +11,8 @@ module.exports = async function (deployer, network, accounts) {
 	await deployer.deploy(TokenA)
 	await deployer.deploy(TokenB)
 
-	//Deploy Multicall
-	await deployer.deploy(Multicall)
+	//Deploy Multicall - not used
+	// await deployer.deploy(Multicall)
 
 	// Deploy DEXFactory
 	await deployer.deploy(DEXFactory)

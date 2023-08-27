@@ -19,7 +19,7 @@ contract Arbitrage {
         address _token0,
         address _token1
     ) {
-        owner = msg.sender;
+        owner = tx.origin;
         dexA = DEX(_dexA);
         dexB = DEX(_dexB);
         flashLoanProvider = FlashLoanProvider(_flashLoanProvider);
@@ -28,7 +28,7 @@ contract Arbitrage {
     }
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Not the contract owner");
+        require(tx.origin == owner, "Not the contract owner");
         _;
     }
 

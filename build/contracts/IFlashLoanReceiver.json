@@ -25,7 +25,7 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fee\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"}],\"name\":\"executeFlashloan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IFlashLoanReceiver.sol\":\"IFlashLoanReceiver\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IFlashLoanReceiver.sol\":{\"keccak256\":\"0x0a927ba40b8042f0c18ae71ff91701a9f1eb639136ba2e1a6c029107be1b6a1c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e555dc1f10c07cd4d47bdaf1d9798aac833afe64b224b39777bedce3e94f4eb4\",\"dweb:/ipfs/QmPmKDWyX7spwgcdmhExLd4zfCrLySbDWv18EciBoseD2x\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.12+commit.f00d7308\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"fee\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"pool\",\"type\":\"address\"}],\"name\":\"executeFlashloan\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/IFlashLoanReceiver.sol\":\"IFlashLoanReceiver\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/IFlashLoanReceiver.sol\":{\"keccak256\":\"0x0a927ba40b8042f0c18ae71ff91701a9f1eb639136ba2e1a6c029107be1b6a1c\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://e555dc1f10c07cd4d47bdaf1d9798aac833afe64b224b39777bedce3e94f4eb4\",\"dweb:/ipfs/QmPmKDWyX7spwgcdmhExLd4zfCrLySbDWv18EciBoseD2x\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
@@ -34,20 +34,20 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ninterface IFlashLoanReceiver {\n    function executeFlashloan(\n        uint256 amount,\n        uint256 fee,\n        address pool\n    ) external;\n}\n",
-  "sourcePath": "/media/scott/E8A0D408A0D3DB60/Users/surge/Desktop/dapp-projects/liquidip/contracts/IFlashLoanReceiver.sol",
+  "sourcePath": "C:\\Users\\surge\\Desktop\\dapp-projects\\liquidip\\contracts\\IFlashLoanReceiver.sol",
   "ast": {
     "absolutePath": "project:/contracts/IFlashLoanReceiver.sol",
     "exportedSymbols": {
       "IFlashLoanReceiver": [
-        1529
+        1585
       ]
     },
-    "id": 1530,
+    "id": 1586,
     "license": "MIT",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 1519,
+        "id": 1575,
         "literals": [
           "solidity",
           "^",
@@ -55,7 +55,7 @@
           ".0"
         ],
         "nodeType": "PragmaDirective",
-        "src": "32:23:7"
+        "src": "32:23:8"
       },
       {
         "abstract": false,
@@ -64,36 +64,36 @@
         "contractDependencies": [],
         "contractKind": "interface",
         "fullyImplemented": false,
-        "id": 1529,
+        "id": 1585,
         "linearizedBaseContracts": [
-          1529
+          1585
         ],
         "name": "IFlashLoanReceiver",
-        "nameLocation": "67:18:7",
+        "nameLocation": "67:18:8",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "functionSelector": "32978f79",
-            "id": 1528,
+            "id": 1584,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
             "name": "executeFlashloan",
-            "nameLocation": "101:16:7",
+            "nameLocation": "101:16:8",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 1526,
+              "id": 1582,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 1521,
+                  "id": 1577,
                   "mutability": "mutable",
                   "name": "amount",
-                  "nameLocation": "135:6:7",
+                  "nameLocation": "135:6:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1528,
-                  "src": "127:14:7",
+                  "scope": 1584,
+                  "src": "127:14:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -101,10 +101,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1520,
+                    "id": 1576,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "127:7:7",
+                    "src": "127:7:8",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -114,13 +114,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1523,
+                  "id": 1579,
                   "mutability": "mutable",
                   "name": "fee",
-                  "nameLocation": "159:3:7",
+                  "nameLocation": "159:3:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1528,
-                  "src": "151:11:7",
+                  "scope": 1584,
+                  "src": "151:11:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -128,10 +128,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 1522,
+                    "id": 1578,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "151:7:7",
+                    "src": "151:7:8",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -141,13 +141,13 @@
                 },
                 {
                   "constant": false,
-                  "id": 1525,
+                  "id": 1581,
                   "mutability": "mutable",
                   "name": "pool",
-                  "nameLocation": "180:4:7",
+                  "nameLocation": "180:4:8",
                   "nodeType": "VariableDeclaration",
-                  "scope": 1528,
-                  "src": "172:12:7",
+                  "scope": 1584,
+                  "src": "172:12:8",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -155,10 +155,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 1524,
+                    "id": 1580,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "172:7:7",
+                    "src": "172:7:8",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -168,36 +168,35 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "117:73:7"
+              "src": "117:73:8"
             },
             "returnParameters": {
-              "id": 1527,
+              "id": 1583,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "199:0:7"
+              "src": "199:0:8"
             },
-            "scope": 1529,
-            "src": "92:108:7",
+            "scope": 1585,
+            "src": "92:108:8",
             "stateMutability": "nonpayable",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 1530,
-        "src": "57:145:7",
-        "usedErrors": [],
-        "usedEvents": []
+        "scope": 1586,
+        "src": "57:145:8",
+        "usedErrors": []
       }
     ],
-    "src": "32:171:7"
+    "src": "32:171:8"
   },
   "compiler": {
     "name": "solc",
-    "version": "0.8.21+commit.d9974bed.Emscripten.clang"
+    "version": "0.8.12+commit.f00d7308.Emscripten.clang"
   },
   "networks": {},
   "schemaVersion": "3.4.15",
-  "updatedAt": "2023-08-22T16:47:56.154Z",
+  "updatedAt": "2023-08-27T04:02:56.815Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
