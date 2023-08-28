@@ -49,7 +49,7 @@
 		props: ["show"],
 		data() {
 			return {
-				balance: "0.0", // Placeholder balance value, fetch actual value in mounted or a watcher
+				balance: "0.00", // Placeholder balance value, fetch actual value in mounted or a watcher
 				depositAmount: "",
 				withdrawAmount: "",
 			}
@@ -147,7 +147,8 @@
 					.balanceOf(this.web3.currentAddress)
 					.call()
 				const bal = web3.utils.fromWei(balWei, "ether")
-				this.balance = (+bal).toFixed(2)
+				// this.balance = (+bal).toFixed(2)
+				this.balance = bal
 			},
 		},
 	}
