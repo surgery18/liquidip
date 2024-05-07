@@ -9,24 +9,24 @@
 						class="amount-input"
 						type="text"
 						placeholder="0.0"
-						v-model="payAmount"
-					/>
+						v-model="payAmount" />
 					<span class="usd-amount">${{ usdSwapFrom }}</span>
 				</div>
-				<div
-					class="token-symbol-content text-end"
-					@click="openTokenModal('from')"
-				>
-					<span class="balance-display" v-if="web3.currentAddress">
+				<div class="token-symbol-content text-end">
+					<span
+						class="balance-display"
+						v-if="web3.currentAddress"
+						@click="payAmount = balanceSwapFrom">
 						Balance: {{ balanceSwapFrom }}
 					</span>
-					<span
-						class="token-symbol"
-						v-text="swapFrom.symbol"
-						v-if="swapFrom.symbol"
-					></span>
-					<span class="token-symbol" v-else>Select Token</span>
-					<span class="token-dropdown-icon bi bi-chevron-down"></span>
+					<div @click="openTokenModal('from')">
+						<span
+							class="token-symbol"
+							v-text="swapFrom.symbol"
+							v-if="swapFrom.symbol"></span>
+						<span class="token-symbol" v-else>Select Token</span>
+						<span class="token-dropdown-icon bi bi-chevron-down"></span>
+					</div>
 				</div>
 			</div>
 
@@ -44,24 +44,21 @@
 						type="text"
 						placeholder="0.0"
 						v-model="receiveAmount"
-						readonly
-					/>
+						readonly />
 					<span class="usd-amount">${{ usdSwapTo }}</span>
 				</div>
-				<div
-					class="token-symbol-content text-end"
-					@click="openTokenModal('to')"
-				>
+				<div class="token-symbol-content text-end">
 					<span class="balance-display" v-if="web3.currentAddress">
 						Balance: {{ balanceSwapTo }}
 					</span>
-					<span
-						class="token-symbol"
-						v-text="swapTo.symbol"
-						v-if="swapTo.symbol"
-					></span>
-					<span class="token-symbol" v-else>Select Token</span>
-					<span class="token-dropdown-icon bi bi-chevron-down"></span>
+					<div @click="openTokenModal('to')">
+						<span
+							class="token-symbol"
+							v-text="swapTo.symbol"
+							v-if="swapTo.symbol"></span>
+						<span class="token-symbol" v-else>Select Token</span>
+						<span class="token-dropdown-icon bi bi-chevron-down"></span>
+					</div>
 				</div>
 			</div>
 			<small class="token-rate" v-if="swapFrom.symbol && swapTo.symbol"
@@ -73,8 +70,7 @@
 				class="btn-swap"
 				@click="swap"
 				v-text="btnText"
-				v-if="web3.currentAddress"
-			></button>
+				v-if="web3.currentAddress"></button>
 			<button class="btn-swap" v-else @click="web3.connect">
 				Connect Wallet
 			</button>
@@ -357,9 +353,16 @@
 				this.oneToOne = 0
 			},
 			async swapTokens() {
-				const temp = this.swapFrom
-				this.swapFrom = { ...this.swapTo }
-				this.swapTo = { ...temp }
+				//old way way to swap
+				// const temp = this.swapFrom
+				// this.swapFrom = { ...this.swapTo }
+				// this.swapTo = { ...temp }
+				//clever way to swap
+				;[this.swapFrom, this.swapTo] = [this.swapTo, this.swapFrom]
+				;[this.balanceSwapFrom, this.balanceSwapTo] = [
+					this.balanceSwapTo,
+					this.balanceSwapFrom,
+				]
 
 				if (+this.payAmount > 0) {
 					this.receiveAmount = await this.getOutputTokens(

@@ -10,7 +10,7 @@
 
 			<!-- Deposit Section -->
 			<div class="action-section">
-				<label for="depositAmount">Deposit WBNB:</label>
+				<label for="depositAmount">Deposit BNB:</label>
 				<input type="number" id="depositAmount" v-model="depositAmount" />
 				<button class="btn btn-outline-light" @click="handleDeposit">
 					Deposit
