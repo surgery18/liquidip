@@ -2,6 +2,7 @@ import { ref, computed } from "vue"
 import { defineStore } from "pinia"
 import DexFactoryContract from "../../../build/contracts/DEXFactory.json"
 import LiquidityPoolFactory from "../../../build/contracts/LiquidityPoolFactory.json"
+import WBNBContract from "../../../build/contracts/WBNB.json"
 import Web3 from "web3"
 import DEX from "../../../build/contracts/DEX.json"
 import IERC20 from "../../../build/contracts/IERC20.json"
@@ -17,6 +18,7 @@ export const useWeb3Store = defineStore("web3", () => {
 	const dexFactory = ref(null)
 	const networkId = ref(null)
 	const arbFactory = ref(null)
+	const wbnb = ref(null)
 
 	const shortAddress = computed(() =>
 		currentAddress.value
@@ -89,6 +91,9 @@ export const useWeb3Store = defineStore("web3", () => {
 		// console.log(dfa)
 		dexFactory.value = new web3.value.eth.Contract(DexFactoryContract.abi, dfa)
 		// arbFactory.value = new web3.value.eth.Contract(ArbFactoryContractABI, "ArbFactoryContractAddress");
+
+		wbnb.value = WBNBContract.networks[networkId.value].address
+		console.log(wbnb.value)
 	}
 
 	async function findOptimalPool(dex, desiredToken, amount) {
@@ -167,6 +172,7 @@ export const useWeb3Store = defineStore("web3", () => {
 		shortAddress,
 		dexFactory,
 		networkId,
+		wbnb,
 		initializeWeb3,
 		connect,
 		loadContracts,

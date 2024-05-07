@@ -3,6 +3,9 @@
 		<template #title> WBNB Management </template>
 
 		<div class="modal-body">
+			<div>
+				<p>WBNB Address: {{ web3.wbnb ?? "N/A" }}</p>
+			</div>
 			<!-- Balance Display -->
 			<div class="balance-section">
 				<p>
@@ -64,6 +67,7 @@
 		},
 		setup() {
 			const web3 = useWeb3Store()
+			// web3.loadContracts()
 			return { web3, startLoading, stopLoading }
 		},
 		watch: {

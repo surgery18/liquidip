@@ -364,6 +364,8 @@
 					this.balanceSwapFrom,
 				]
 
+				this.payAmount = this.receiveAmount
+
 				if (+this.payAmount > 0) {
 					this.receiveAmount = await this.getOutputTokens(
 						this.swapFrom,
@@ -394,8 +396,10 @@
 						this.payAmount
 					)
 				}
-				await this.calcOnetoOne()
 				await this.getBalances()
+				await this.calcOnetoOne()
+				await this.getUSDAmounts()
+				await this.getBtnText()
 			},
 			async getOutputTokens(a, b, amountIn) {
 				if (!a.symbol || !b.symbol) {
