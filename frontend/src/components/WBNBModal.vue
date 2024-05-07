@@ -5,12 +5,19 @@
 		<div class="modal-body">
 			<!-- Balance Display -->
 			<div class="balance-section">
-				<p>Your WBNB Balance: {{ balance }}</p>
+				<p>
+					Your WBNB Balance:
+					<span @click="withdrawAmount = balance">{{ balance }}</span>
+				</p>
+				<p>
+					Your BNB Balance:
+					<span @click="depositAmount = balance2">{{ balance2 }}</span>
+				</p>
 			</div>
 
 			<!-- Deposit Section -->
 			<div class="action-section">
-				<label for="depositAmount">Deposit BNB:</label>
+				<label for="depositAmount">Wrap BNB:</label>
 				<input type="number" id="depositAmount" v-model="depositAmount" />
 				<button class="btn btn-outline-light" @click="handleDeposit">
 					Deposit
@@ -19,7 +26,7 @@
 
 			<!-- Withdraw Section -->
 			<div class="action-section">
-				<label for="withdrawAmount">Withdraw WBNB:</label>
+				<label for="withdrawAmount">Unwrap WBNB:</label>
 				<input type="number" id="withdrawAmount" v-model="withdrawAmount" />
 				<button class="btn btn-outline-light" @click="handleWithdraw">
 					Withdraw
@@ -50,6 +57,7 @@
 		data() {
 			return {
 				balance: "0.00", // Placeholder balance value, fetch actual value in mounted or a watcher
+				balance2: "0.00",
 				depositAmount: "",
 				withdrawAmount: "",
 			}
@@ -68,6 +76,8 @@
 		},
 		methods: {
 			closeModal() {
+				this.depositAmount = ""
+				this.withdrawAmount = ""
 				this.$emit("close")
 			},
 			async handleDeposit() {
@@ -149,6 +159,11 @@
 				const bal = web3.utils.fromWei(balWei, "ether")
 				// this.balance = (+bal).toFixed(2)
 				this.balance = bal
+
+				// Fetch ETH balance
+				const balWei2 = await web3.eth.getBalance(this.web3.currentAddress)
+				const bal2 = web3.utils.fromWei(balWei2, "ether")
+				this.balance2 = bal2
 			},
 		},
 	}
